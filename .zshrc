@@ -43,3 +43,4 @@ export NVM_DIR="$HOME/.nvm"
 
 # Created by `pipx` on 2025-03-03 15:16:05
 export PATH="$PATH:/Users/utilisateur/.local/bin"
+alias pls="sudo"
