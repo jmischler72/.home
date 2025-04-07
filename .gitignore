@@ -1,0 +1,6 @@
+*
+!.zshrc
+!.p10k.zsh
+!.vimrc
+!.vim_runtime
+!.vim_runtime/**
