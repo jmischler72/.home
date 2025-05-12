@@ -1,0 +1,8 @@
+[user]
+	email = joffrey.mischlerps@gmail.com
+	name = Joffrey
+	signingkey = 84556B81AE520FEC83A66428511D0110518F902F
+[gpg]
+	program = /opt/homebrew/bin/gpg
+[push]
+	followTags = true
