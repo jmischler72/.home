@@ -43,6 +43,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Created by `pipx` on 2025-03-03 15:16:05
 export PATH="$PATH:/Users/utilisateur/.local/bin"
+
 alias pls="sudo"
 
 # Go Path
@@ -51,3 +52,16 @@ export GOROOT=/usr/local/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOPATH:$GOBIN
 export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+# ASP Aliases
+
+awsid() {
+  if ! aws sts get-caller-identity &>/dev/null; then
+    echo "Not authenticated. Running SSO login..."
+    aws sso login
+  fi
+}
+
+alias asps="awsid && asp devops-shared"
+alias aspP="awsid && asp devops-prod"
+alias aspp="awsid && asp devops-preprod"
