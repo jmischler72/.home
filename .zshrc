@@ -53,15 +53,26 @@ export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOPATH:$GOBIN
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 
-# ASP Aliases
+# AWS Aliases
+
+hasAwsProfile () {
+  if [ -f .awsprofile ]; then
+    export AWS_PROFILE="`cat .awsprofile`"
+  fi
+}
+awsProfileCd () {
+cd "$@" && hasAwsProfile
+}
+
+alias cd="awsProfileCd"
 
 awsid() {
   if ! aws sts get-caller-identity &>/dev/null; then
     echo "Not authenticated. Running SSO login..."
-    aws sso login
+    aws sso login --sso-session t-sso 
   fi
 }
 
-alias asps="awsid && asp devops-shared"
-alias aspP="awsid && asp devops-prod"
-alias aspp="awsid && asp devops-preprod"
+alias asps="asp devops-shared && awsid"
+alias aspP="asp devops-prod && awsid"
+alias aspp="asp devops-preprod && awsid"

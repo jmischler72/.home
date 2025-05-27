@@ -6,3 +6,5 @@
 	program = /opt/homebrew/bin/gpg
 [push]
 	followTags = true
+[core]
+	excludesFile = ~/.gitignore_global

@@ -5,3 +5,4 @@
 !.vim_runtime
 !.vim_runtime/**
 !.gitconfig
+!.gitignore_global
