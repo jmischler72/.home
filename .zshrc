@@ -54,18 +54,14 @@ export PATH=$PATH:$GOPATH:$GOBIN
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 
 # AWS Aliases
-
+# - Function to switch AWS profiles from .awsprofile file
 hasAwsProfile () {
-  if [ -f .awsprofile ]; then
-    export AWS_PROFILE="`cat .awsprofile`"
-  fi
-}
-awsProfileCd () {
-cd "$@" && hasAwsProfile
+    if [ -f .awsprofile ]; then
+      asp $(cat .awsprofile)
+    fi
 }
 
-alias cd="awsProfileCd"
-
+# - Function to login to AWS SSO if not authenticated
 awsid() {
   if ! aws sts get-caller-identity &>/dev/null; then
     echo "Not authenticated. Running SSO login..."
@@ -73,6 +69,16 @@ awsid() {
   fi
 }
 
+# - Execute hasAwsProfile on interactive shell start or when changing directory
+if [[ $- == *i* ]]; then
+  hasAwsProfile
+  alias cd="cd "$@" && hasAwsProfile" 
+fi
+
 alias asps="asp devops-shared && awsid"
 alias aspP="asp devops-prod && awsid"
 alias aspp="asp devops-preprod && awsid"
+
+# Helm Aliases
+alias hst="helm secrets template"
+alias hdb="helm dependency build"
