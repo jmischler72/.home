@@ -44,8 +44,6 @@ export NVM_DIR="$HOME/.nvm"
 # Created by `pipx` on 2025-03-03 15:16:05
 export PATH="$PATH:/Users/utilisateur/.local/bin"
 
-alias pls="sudo"
-
 # Go Path
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/go
@@ -57,7 +55,7 @@ export PATH="/usr/local/opt/libpq/bin:$PATH"
 # - Function to switch AWS profiles from .awsprofile file
 hasAwsProfile () {
     if [ -f .awsprofile ]; then
-      asp $(cat .awsprofile)
+      asp $(cat .awsprofile) && awsid
     fi
 }
 
@@ -72,8 +70,11 @@ awsid() {
 # - Execute hasAwsProfile on interactive shell start or when changing directory
 if [[ $- == *i* ]]; then
   hasAwsProfile
-  alias cd="cd "$@" && hasAwsProfile" 
 fi
+
+cd() {
+  builtin cd "$1" && hasAwsProfile
+}
 
 alias asps="asp devops-shared && awsid"
 alias aspP="asp devops-prod && awsid"
